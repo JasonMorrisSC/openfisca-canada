@@ -3,10 +3,10 @@
 from setuptools import find_packages, setup
 
 setup(
-    name = "OpenFisca-Country-Template",
+    name = "OpenFisca-Canada",
     version = "3.13.1",
-    author = "OpenFisca Team",
-    author_email = "contact@openfisca.org",
+    author = "Jason Morris",
+    author_email = "jason.morris@servicecanada.gc.ca",
     classifiers = [
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU Affero General Public License v3",
@@ -17,14 +17,14 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Topic :: Scientific/Engineering :: Information Analysis",
         ],
-    description = "OpenFisca tax and benefit system for Country-Template",
+    description = "OpenFisca tax and benefit system for Canada",
     keywords = "benefit microsimulation social tax",
     license = "http://www.fsf.org/licensing/licenses/agpl-3.0.html",
-    url = "https://github.com/openfisca/country-template",
+    url = "https://github.com/JasonMorrisSC/openfisca-canada",
     include_package_data = True,  # Will read MANIFEST.in
     data_files = [
         (
-            "share/openfisca/openfisca-country-template",
+            "share/openfisca/openfisca-canada",
             ["CHANGELOG.md", "LICENSE", "README.md"],
             ),
         ],
