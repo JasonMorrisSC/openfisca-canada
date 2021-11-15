@@ -1,0 +1,8 @@
+# The minimum age for Old Age Security eligibility.
+description: Age of eligibility for Old Age Security (in years). 
+metadata:
+  reference: https://www.canlii.org/en/ca/laws/stat/rsc-1985-c-o-9/latest/rsc-1985-c-o-9.html#sec3subsec1
+  unit: year
+values:
+  1977-07-01: # Prior to that date, whether you were 65 was irrelevant, what mattered was whether you were a pensioner.
+    value: 65.0
