@@ -139,7 +139,7 @@ class oas_eligible(Variable):
     definition_period = MONTH # A person is eligible the day they turn 65, but OpenFisca doesn't define DAY as a period. 
     label = "The person's eligibility for Old Age Security"
 
-    def formula_1977_07(person, period, paramters): # This formula applies after July 1977
+    def formula_1977_07(person, period, parameters): # This formula applies after July 1977
         """A person's eligibility for Old Age Security."""
 
         # The person is eligible if they are at or above the age of eligibility for OAS
