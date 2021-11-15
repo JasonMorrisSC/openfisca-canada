@@ -132,3 +132,16 @@ class household_income(Variable):
         """A household's income."""
         salaries = household.members("salary", period)
         return household.sum(salaries)
+
+class oas_eligibile(Variable):
+    value_type = bool
+    entity = Person
+    definition_period = DAY # A person is eligible the day they turn 65, for example.
+    label = "The person's eligibility for Old Age Security"
+
+    def formula_1977_07(person, period, _paramters): # This formula applies after July 1977
+        """A person's eligibility for Old Age Security."""
+
+        # The person is eligible if they are at or above the age of eligibility for OAS
+        eligible = person("age", period) >= parameters(period).benefits.old_age_security.age_of_eligibility
+        return eligible
