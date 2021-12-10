@@ -132,16 +132,3 @@ class household_income(Variable):
         """A household's income."""
         salaries = household.members("salary", period)
         return household.sum(salaries)
-
-
-class oas_eligible(Variable):
-    value_type = bool
-    entity = Person
-    definition_period = MONTH  # A person is eligible the day they turn 65, but OpenFisca doesn't define DAY as a period.
-    label = "The person's eligibility for Old Age Security"
-
-    def formula_1977_07(person, period, parameters):  # This formula applies after July 1977
-        """A person's eligibility for Old Age Security."""
-        # The person is eligible if they are at or above the age of eligibility for OAS
-        eligible = person("age", period) >= parameters(period).benefits.old_age_security.age_of_eligibility
-        return eligible
