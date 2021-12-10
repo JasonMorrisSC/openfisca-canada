@@ -7,8 +7,8 @@
     birth: 1980-02-15
   output:
     age:
-      2015-02: 34
-      2015-03: 35
+      2015-02-01: 34
+      2015-03-01: 35
 
 - name: Years are taken into consideration
   period: 2016-01
@@ -16,8 +16,8 @@
     birth: 1980-12-31
   output:
     age:
-      2015-12: 34
-      2016-01: 35
+      2015-12-01: 34
+      2016-01-01: 35
 
 - name: The first year is considered of age 0
   period: 2016-01
@@ -25,9 +25,9 @@
     birth: 1980-02-01
   output:
     age:
-      1980-02: 0
-      1980-03: 0
-      1981-03: 1
+      1980-02-01: 0
+      1980-03-01: 0
+      1981-03-01: 1
 
 - name: Leap years are supported
   period: 2016-01
@@ -35,5 +35,5 @@
     birth: 1980-02-29
   output:
     age:
-      2015-02: 34
-      2015-03: 35
+      2015-02-01: 34
+      2015-03-01: 35
