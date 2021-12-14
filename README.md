@@ -1,120 +1,22 @@
 # OpenFisca Canada 
 
-This repository helps you quickly bootstrap and use your own OpenFisca country package.
+This repository holds OpenFisca code written to represent the services and benefits
+relevant to tools under development in Service Canada. **It is a work in progress and
+should not be relied upon for any real-world purpose.** 
 
-## Writing the Legislation
+## Requirements
 
-The country whose law is modelled here has a very simple tax and benefit system.
+This package requires [Python 3.7](https://www.python.org/downloads/release/python-370/), and pip version 9.0 or higher. More recent versions should work, but are not tested.
 
-- It has a flat rate tax whose rates increase every year.
-- On the first of December, 2015, it introduced a basic income for all its citizens of age who have no income.
-- On the first of December, 2016, it removed the income condition, providing all its adult citizens with a basic income.
+Installing this package will also install OpenFisca as a dependency.
 
-These elements are described in different folders. All the modelling happens within the `openfisca_canada` folder.
+## Installation
 
-- The rates are in the `parameters` folder.
-- The formulas are in the `variables` folder.
-- This country package comes also with *reforms* in the `reforms` folder. This is optional: your country may exist without defining any reform.
-    - In this country, there is [a reform project](./openfisca_canada/reforms/modify_social_security_taxation.py) aiming to modify the social security taxation, deleting the first bracket, raising the intermediary ones and adding a new bracket with a higher tax rate of `40 %` for people earning more than `40000`. This reform project would apply starting from `2017-01-01`.
-
-The files that are outside from the `openfisca_canada` folder are used to set up the development environment.
-
-## Packaging your Country Package for Distribution
-
-Country packages are python distributions. To distribute your package via `pip`, follow the steps given by the [Python Packaging Authority](https://python-packaging-user-guide.readthedocs.io/tutorials/distributing-packages/#packaging-your-project).
-
-## Install Instructions for Users and Contributors
-
-This package requires [Python 3.7](https://www.python.org/downloads/release/python-370/). More recent versions should work, but are not tested.
-
-All platforms that can execute Python are supported, which includes GNU/Linux, macOS and Microsoft Windows (in which case we recommend using [ConEmu](https://conemu.github.io/) instead of the default console).
-
-### Setting-up a Virtual Environment with venv
+This package is not currently made available for install through `pip`.
 
 In order to limit dependencies conflicts, we recommend using a [virtual environment](https://www.python.org/dev/peps/pep-0405/) with [venv](https://docs.python.org/3/library/venv.html).
 
-- A [venv](https://docs.python.org/3/library/venv.html) is a project specific environment created to suit the needs of the project you are working on.
-
-To create a virtual environment, launch a terminal on your computer, `cd` into your directory and follow these instructions:
-
-```sh
-python3 -m venv openfisca # create a new venv called “openfisca”
-source openfisca/bin/activate # activate the venv
-```
-
-You can now operate in the venv you just created.
-
-You can deactivate that venv at any time with `deactivate`.
-
-:tada: You are now ready to install this OpenFisca Country Package!
-
-Two install procedures are available. Pick procedure A or B below depending on how you plan to use this Country Package.
-
-### A. Minimal Installation (Pip Install)
-
-Follow this installation if you wish to:
-- run calculations on a large population;
-- create tax & benefits simulations;
-- write an extension to this legislation (e.g. city specific tax & benefits);
-- serve your Country Package with the OpenFisca Web API.
-
-For more advanced uses, head to the [Advanced Installation](#advanced-installation-git-clone).
-
-#### Install this Country Package with Pip Install
-
-Inside your venv, check the prerequisites:
-
-```sh
-python --version  # should print "Python 3.7.xx".
-```
-
-```sh
-pip --version  # should print at least 9.0.
-# if not, run "pip install --upgrade pip"
-```
-Install the Country Package:
-
-```sh
-pip install openfisca_canada
-```
-
-:warning: Please beware that installing the Country Package with `pip` is dependent on its maintainers publishing said package.
-
-:tada: This OpenFisca Country Package is now installed and ready!
-
-#### Next Steps
-
-- To learn how to use OpenFisca, follow our [tutorials](https://openfisca.org/doc/).
-- To serve this Country Package, serve the [OpenFisca web API](#serve-your-country-package-with-the-openFisca-web-api).
-
-Depending on what you want to do with OpenFisca, you may want to install yet other packages in your venv:
-- To install extensions or write on top of this Country Package, head to the [Extensions documentation](https://openfisca.org/doc/contribute/extensions.html).
-- To plot simulation results, try [matplotlib](http://matplotlib.org/).
-- To manage data, check out [pandas](http://pandas.pydata.org/).
-
-### B. Advanced Installation (Git Clone)
-
-Follow this tutorial if you wish to:
-- create or change this Country Package's legislation;
-- contribute to the source code.
-
-#### Clone this Country Package with Git
-
-First, make sure [Git](https://www.git-scm.com/) is installed on your machine.
-
-Set your working directory to the location where you want this OpenFisca Country Package cloned.
-
-Inside your venv, check the prerequisites:
-
-```sh
-python --version  # should print "Python 3.7.xx".
-```
-
-```sh
-pip --version  # should print at least 9.0.
-# if not, run "pip install --upgrade pip"
-```
-Clone this Country Package on your machine:
+To install, clone this Country Package on your machine:
 
 ```sh
 git clone https://github.com/JasonMorrisSC/openfisca-canada.git
@@ -124,18 +26,7 @@ pip install --editable .[dev]
 
 You can make sure that everything is working by running the provided tests with `make test`.
 
-> [Learn more about tests](https://openfisca.org/doc/coding-the-legislation/writing_yaml_tests.html)
-
-:tada: This OpenFisca Country Package is now installed and ready!
-
-#### Next Steps
-
-- To write new legislation, read the [Coding the legislation](https://openfisca.org/doc/coding-the-legislation/index.html) section to know how to write legislation.
-- To contribute to the code, read our [Contribution Guidebook](https://openfisca.org/doc/contribute/index.html).
-
-## Serve this Country Package with the OpenFisca Web API
-
-If you are considering building a web application, you can use the packaged OpenFisca Web API with your Country Package.
+## Usage
 
 To serve the Openfisca Web API locally, run:
 
@@ -143,30 +34,50 @@ To serve the Openfisca Web API locally, run:
 openfisca serve --port 5000
 ```
 
-Or use the quick-start Make command:
-
-```
-make serve-local
-```
-
-To read more about the `openfisca serve` command, check out its [documentation](https://openfisca.org/doc/openfisca-python-api/openfisca_serve.html).
-
 You can make sure that your instance of the API is working by requesting:
 
 ```sh
 curl "http://localhost:5000/spec"
 ```
 
-This endpoint returns the [Open API specification](https://www.openapis.org/) of your API.
+You can test the Web API by sending it example JSON data located in the `situation_examples` folder.
 
-:tada: This OpenFisca Country Package is now served by the OpenFisca Web API! To learn more, go to the [OpenFisca Web API documentation](https://openfisca.org/doc/openfisca-web-api/index.html).
+Note that if you are running OpenFisca inside a Docker container, you may need to use the
+`--bind 0.0.0.0:5000` option in place of the `--port` option.
 
-You can test your new Web API by sending it example JSON data located in the `situation_examples` folder.
+## Contributions
 
-Substitute your package's country name for `openfisca_canada` below:
+Thank you for your contributions to this open source package.
 
-```sh
-curl -X POST -H "Content-Type: application/json" \
-  -d @./openfisca_canada/situation_examples/couple.json \
-  http://localhost:5000/calculate
-```
+We follow [GitHub Flow](https://guides.github.com/introduction/flow/) and [semantic versioning](https://semver.org).
+
+Major version numbers change when there is a backward-incompatible change in the API. Minor version numbers change when there is a backward-compatible functional change in the API. Patch
+version numbers change for everything else. Pre-releases are noted with `-alpha` and `-beta` suffixes.
+
+The `main` branch is the primary branch, and releases will be tagged in that branch only. Pull requests should be made against the `devel` branch.
+
+Please include appropriate changes to the CHANGELOG with your pull requests.
+
+Make the title of the changelog entry the version number, and link it to the relevant release or pull request.
+
+The Changelog entry should list, briefly:
+* issues resolved
+* bugs fixed
+* features added
+* features deprecated
+* features removed
+* features changed
+* a link to the relevant pull request
+
+If the change makes substantive changes to the rules encoded in the package, include the
+following details:
+* affected time periods
+* parameter, reform, variables, or entities modified
+* the prior state
+* the new state, with usage details
+* the motivation for the change
+
+## Additional Information
+
+* [OpenFisca Website](https://openfisca.org/)
+* [OpenFisca Web API documentation](https://openfisca.org/doc/openfisca-web-api/index.html)
