@@ -1,0 +1,253 @@
+# Basic OAS Tests adapted from
+# https://github.com/DTS-STN/eligibility-estimator/blob/main/__tests__/pages/api/index.test.ts
+#
+# TO DO:
+# * Add tests for OAS entitlement when it is added to the package
+# * Modify the tests so that they check for reasons according to the
+#   structure of the code in this package. More info, conditiona, and reasons.
+
+- name: OAS ineligible when income too high
+  period: 2021-12-01
+  input:
+    income: 129758
+    income_known: True
+  output:
+   oas_eligible:
+     2021-12-01: False
+   oas_eligible_known:
+     2021-12-01: True
+- name: If not resident, foreign qualification not known, OAS eligibility not known.
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: OTHER
+    legal_status_known: True
+    years_in_canada_since_18: 20
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known:
+      2021-12-01: False
+- name: Uncertain if Sponsored
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: SPONSORED
+    legal_status_known: True
+    years_in_canada_since_18: 20
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known:
+      2021-12-01: False
+- name: Uncertain (need more info) when citizen, < 10 years residence
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 9
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known: 
+      2021-12-01: False
+- name: not eligible when citizen and under 10 and not living in social agreement country
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 9
+    years_in_canada_since_18_known: True
+    resides_in_agreement_country: False
+    resides_in_agreement_country_known: True
+  output:
+    oas_eligible_known: 
+      2021-12-01: True
+    oas_eligible: 
+      2021-12-01: False
+- name: eligible when citizen and 10 years in canada.
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 10
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known: 
+      2021-12-01: True
+    oas_eligible: 
+      2021-12-01: True
+- name: eligible when living in agreement and 20 years residence
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    resides_in_agreement_country: True
+    resides_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 20
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known: 
+      2021-12-01: True
+    oas_eligible: 
+      2021-12-01: True
+- name: unknown when living in agreement country, less than 20 years residence, qualificaiton not known
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    resides_in_agreement_country: True
+    resides_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 19
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known: 
+      2021-12-01: False
+- name: eligible when in no agreement and 20 years in Canada
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    resides_in_agreement_country: False
+    resides_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 20
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known: 
+      2021-12-01: True
+    oas_eligible: 
+      2021-12-01: True
+- name: not known (more info) when in no agreement and under 20 years in Canada
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 65
+    age_known: True
+    resides_in_agreement_country: False
+    resides_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 19
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known: 
+      2021-12-01: False
+# This test can be added after resided is added.
+# - name: ineligible when in no agreement and under 20 years in Canada and not lived in agreement country
+#   period: 2021-12-01
+#   input:
+#     income: 10000
+#     income_known: True
+#     age: 65
+#     age_known: True
+#     resides_in_agreement_country: False
+#     resides_in_agreement_country_known: True
+#     legal_status: CANADIAN_CITIZEN
+#     legal_status_known: True
+#     years_in_canada_since_18: 19
+#     years_in_canada_since_18_known: True
+#     resided_in_agreement_country: False
+#     resided_in_agreement_country_known: True
+#   output:
+#     oas_eligible_known: 
+      # 2021-12-01: True
+#     oas_eligible: 
+      # 2021-12-01: False
+# This test can be added after resided is added.
+# - name: ineligible due to age when 64, 9 years in canada, lived in social agreement country
+#   period: 2021-12-01
+#   input:
+#     income: 10000
+#     income_known: True
+#     age: 64
+#     age_known: True
+#     place_of_residence: CA
+#     place_of_residence_known: True
+#     legal_status: CANADIAN_CITIZEN
+#     legal_status_known: True
+#     years_in_canada_since_18: 9
+#     years_in_canada_since_18_known: True
+#     resided_in_agreement_country: True
+#     resided_in_agreement_country_known: True
+#   output:
+#     oas_eligible_known: 
+      # 2021-12-01: True
+#     oas_eligible: 
+      # 2021-12-01: False
+# This test can be added after resided is added.
+# - name: conditional eligible when living in no agreement under 20 years in canada and lived in agreement
+#   period: 2021-12-01
+#   input:
+#     income: 10000
+#     income_known: True
+#     age: 65
+#     age_known: True
+#     resides_in_agreement_country: False
+#     resides_in_agreement_country_known: True
+#     legal_status: CANADIAN_CITIZEN
+#     legal_status_known: True
+#     years_in_canada_since_18: 19
+#     years_in_canada_since_18_known: True
+#     resided_in_agreement_country: True
+#     resided_in_agreement_country_known: True
+#   output:
+#     oas_eligible_known: 
+      # 2021-12-01: False
+- name: eligible when 65 if 55 citizen 20 years.
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 55
+    age_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 20
+    years_in_canada_since_18_known: True
+  output:
+    oas_eligible_known: 
+      2021-12-01: True
+    oas_eligible: 
+      2021-12-01: False
+
+
+
+

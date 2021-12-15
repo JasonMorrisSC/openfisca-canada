@@ -1,0 +1,22 @@
+# Basic OAS Allowance For Survivors Tests adapted from
+# https://github.com/DTS-STN/eligibility-estimator/blob/main/__tests__/pages/api/index.test.ts
+#
+# TO DO:
+# * Add basic tests from above link
+# * Add tests for Allowance for Survivor entitlement when it is added to the package
+# * Modify the tests so that they check for reasons according to the
+#   structure of the code in this package. More info, conditiona, and reasons.
+
+- name: ineligible when income is 25920
+- name: need more info when income under 25920
+- name: need more info when age 60
+- name: ineligible when age over 64
+- name: ineligible when age under 60
+- name: conditionally eligible when not resident
+- name: ineligible when citizen and under 10 years in Canada
+- name: ineligible when married
+- name: eligible when widowed
+- name: eligible when living in agreement and 10 years in Canada
+- name: conditionally eligible when living in agreement and under 10 years in canada
+- name: eleigible when living in no agreement, 10 years in Canad
+- name: ineligible when living in no agreement, under 10 years in Canada

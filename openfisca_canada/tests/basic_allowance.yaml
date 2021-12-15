@@ -1,0 +1,45 @@
+# Basic OAS Allowance Tests adapted from
+# https://github.com/DTS-STN/eligibility-estimator/blob/main/__tests__/pages/api/index.test.ts
+#
+# TO DO:
+# * Add basic tests from above link
+# * Add tests for Allowance entitlement when it is added to the package
+# * Modify the tests so that they check for reasons according to the
+#   structure of the code in this package. More info, conditiona, and reasons.
+
+- name: ineligible when income 35616
+- name: needs more info when income under 35616
+- name: needs more info when age 60
+- name: ineligible when age over 64
+- name: ineligible when age under 60
+- name: conditionally eligible when not citizen
+- name: ineligible when citizen under 10 years
+- name: ineligible when widowed
+- name: ineligible when single
+- name: ineligible when partner not receiving OAS
+- name: eligible when citizen and 10 years in Canada
+- name: eligible when living in agreement and 10 year in canada
+- name: conditionally eligible when living in agreement and under 10 years
+- name: eligible when living in no agreement and 10 years in Canada
+- name: ineligible when living in no agreement and under 10 years in Canada
+  period: 2021-12-01
+  input:
+    income: 10000
+    income_known: True
+    age: 60
+    age_known: True
+    living_in_agreement_country: False
+    living_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 9
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: True
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: False
+    allowance_eligible_known:
+      2021-12-01: True

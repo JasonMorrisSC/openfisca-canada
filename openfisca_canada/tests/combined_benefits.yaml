@@ -1,0 +1,20 @@
+# Thorough Benefit Tests adapted from
+# https://github.com/DTS-STN/eligibility-estimator/blob/main/__tests__/pages/api/index.test.ts
+#
+# TO DO:
+# * Add thorough tests from above link
+# * Add tests for entitlements when it is added to the package
+# * Modify the tests so that they check for reasons according to the
+#   structure of the code in this package. More info, conditiona, and reasons.
+
+- name: Persona Tanu Singh, oas eligible, gis eligible
+- name: Persona Habon Aden, oas conditiona, gis ineligible due to country
+- name: Persona Mirian Krayem, oas eligible when 65, gis ineligible due to income
+- name: Persona Adam Smith, oas eligible when 65, gis ineligible due to income
+- name: ineligible due to years in canada when living in canada and 9 years in canada and never lived in social country
+- name: conditionally eligible when living in Canada and 9 years in Canada and lived in country
+- name: conditionall eligible when living in agreement and 9 years in Canada
+- name: eligible when living in canada and 10 years in canada
+- name: conditionally eligible when not living in canada and 19 years in Canada and lived in social agreement country
+- name: ineligible due to years in canada when not living in canada and 10 years in Canada and not lived in social country
+- name: eligible when not living in Canada and 20 years in Canada
