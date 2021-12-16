@@ -1,0 +1,326 @@
+# Basic OAS Allowance Tests adapted from
+# https://github.com/DTS-STN/eligibility-estimator/blob/main/__tests__/pages/api/index.test.ts
+#
+# TO DO:
+# * Add tests for Allowance entitlement when it is added to the package
+# * Modify the tests so that they check for reasons according to the
+#   structure of the code in this package. More info, conditiona, and reasons.
+
+- name: ineligible when income 35616
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 35616
+    income_known: 
+      2021: True
+  output:
+    allowance_eligible_known:
+      2021-12-01: True
+    allowance_eligible:
+      2021-12-01: False
+- name: needs more info when income under 35616
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 35615
+    income_known: 
+      2021: True
+  output:
+    allowance_eligible_known:
+      2021-12-01: False
+- name: needs more info when age 60
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+  output:
+    allowance_eligible_known:
+      2021-12-01: False
+- name: ineligible when age over 64
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 65
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 20
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: True
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: False
+    allowance_eligible_known:
+      2021-12-01: True
+- name: ineligible when age under 60
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 59
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 20
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: False
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: False
+    allowance_eligible_known:
+      2021-12-01: True
+- name: conditionally eligible when not citizen
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: OTHER
+    legal_status_known: True
+    years_in_canada_since_18: 20
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: False
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible_known:
+      2021-12-01: False
+- name: ineligible when citizen under 10 years
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 9
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: True
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: False
+    allowance_eligible_known:
+      2021-12-01: True
+- name: ineligible when widowed
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 10
+    years_in_canada_since_18_known: True
+    marital_status: WIDOWED
+    marital_status_known: True
+    partner_receiving_oas: False
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: False
+    allowance_eligible_known:
+      2021-12-01: True
+- name: ineligible when single
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 10
+    years_in_canada_since_18_known: True
+    marital_status: SINGLE
+    marital_status_known: True
+    partner_receiving_oas: False
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: False
+    allowance_eligible_known:
+      2021-12-01: True
+- name: ineligible when partner not receiving OAS
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 10
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: False
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: False
+    allowance_eligible_known:
+      2021-12-01: True
+- name: eligible when citizen and 10 years in Canada
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    place_of_residence: CA
+    place_of_residence_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 10
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: True
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: True
+    allowance_eligible_known:
+      2021-12-01: True
+- name: eligible when living in agreement and 10 year in canada
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    resides_in_agreement_country: True
+    resides_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 10
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: True
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: True
+    allowance_eligible_known:
+      2021-12-01: True
+- name: conditionally eligible when living in agreement and under 10 years
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    resides_in_agreement_country: True
+    resides_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 9
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: True
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible_known:
+      2021-12-01: False
+- name: eligible when living in no agreement and 10 years in Canada
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    resides_in_agreement_country: False
+    resides_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 10
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: True
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: True
+    allowance_eligible_known:
+      2021-12-01: True
+- name: ineligible when living in no agreement and under 10 years in Canada
+  period: 2021-12-01
+  input:
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
+    age: 60
+    age_known: True
+    resides_in_agreement_country: False
+    resides_in_agreement_country_known: True
+    legal_status: CANADIAN_CITIZEN
+    legal_status_known: True
+    years_in_canada_since_18: 9
+    years_in_canada_since_18_known: True
+    marital_status: MARRIED
+    marital_status_known: True
+    partner_receiving_oas: True
+    partner_receiving_oas_known: True
+  output:
+    allowance_eligible:
+      2021-12-01: False
+    allowance_eligible_known:
+      2021-12-01: True
