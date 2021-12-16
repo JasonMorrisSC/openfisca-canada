@@ -1,9 +1,9 @@
-from openfisca_core.model_api import not_, concat
-from openfisca_core.periods import DAY, MONTH, YEAR, ETERNITY
+from openfisca_core.model_api import not_
+from openfisca_core.periods import DAY, YEAR
 from openfisca_core.variables import Variable
 from openfisca_core.indexed_enums import Enum
 from datetime import date, datetime
-from numpy import where, isin
+from numpy import bool, float, int, str, where, isin
 
 from openfisca_canada.entities import Person
 
@@ -140,6 +140,18 @@ class resides_in_agreement_country_known(Variable):
 
   def formula(person, period, parameters):
     return person("place_of_residence_known", period)
+
+class resided_in_agreement_country(Variable):
+  value_type = bool
+  entity = Person
+  definition_period = DAY
+  label = "Whether the Person's place of residence has ever been in a country with a social agreement with Canada"
+
+class resided_in_agreement_country_known(Variable):
+  value_type = bool
+  entity = Person
+  definition_period = DAY
+  label = "Whether it is known whether the person's place of residence has ever been in a country with a social agreement with Canada"
 
 class oas_eligible(Variable):
   value_type = bool
@@ -1220,3 +1232,43 @@ class afs_residence_foreign_qualified_satisfied_known(Variable):
 #     reason = where(not_(income_requirement),"Your income is too high to be eligible for Allowance for Survivor.",reason)
 #     reason = where(not_(canadian_residence_requirement + alternative_residence_requirement), "You must either be a resident of Canada who has resided in Canada for 10 years, or the resident of a country with a social agreement with canada, be eligible under that agreement, and have resided in Canada for 10 years.",reason)
 #     return reason
+
+class oas_entitlement(Variable):
+  value_type = float
+  entity = Person
+  definition_period = DAY
+  label = "The amount of the person's Old Age Security entitlement"
+
+  def formula(person, period, parameters):
+    entitlement = 400.75 * person('oas_eligible',period) * person('oas_eligible_known',period)
+    return entitlement
+
+class gis_entitlement(Variable):
+  value_type = float
+  entity = Person
+  definition_period = DAY
+  label = "The amount of the person's Guaranteed Income Supplement entitlement"
+
+  def formula(person, period, parameters):
+    entitlement = 123.45 * person('gis_eligible',period) * person('gis_eligible_known',period)
+    return entitlement
+
+class allowance_entitlement(Variable):
+  value_type = float
+  entity = Person
+  definition_period = DAY
+  label = "The amount of the person's old age security allowance entitlement"
+
+  def formula(person, period, parameters):
+    entitlement = 23.45 * person('allowance_eligible', period) * person('allowance_eligible_known',period)
+    return entitlement
+
+class afs_entitlement(Variable):
+  value_type = float
+  entity = Person
+  definition_period = DAY
+  label = "The amount of the person's allowance for survivors entitlement"
+
+  def formula(person, period, parameters):
+    entitlement = 12.34 * person('afs_eligible',period) * person('afs_eligible_known',period)
+    return entitlement
