@@ -1240,8 +1240,17 @@ class oas_entitlement(Variable):
   label = "The amount of the person's Old Age Security entitlement"
 
   def formula(person, period, parameters):
-    entitlement = 400.75 * person('oas_eligible',period) * person('oas_eligible_known',period)
+    entitlement = 400.75 * person('oas_eligible',period)
     return entitlement
+
+class oas_entitlement_known(Variable):
+  value_type = bool
+  entity = Person
+  definition_period = DAY
+  label = "Whether we know the amount of the person's Old Age Security entitlement"
+
+  def formula(person, period, parameters):
+    return person('oas_eligible_known', period)
 
 class gis_entitlement(Variable):
   value_type = float
@@ -1250,8 +1259,17 @@ class gis_entitlement(Variable):
   label = "The amount of the person's Guaranteed Income Supplement entitlement"
 
   def formula(person, period, parameters):
-    entitlement = 123.45 * person('gis_eligible',period) * person('gis_eligible_known',period)
+    entitlement = 123.45 * person('gis_eligible',period)
     return entitlement
+
+class gis_entitlement_known(Variable):
+  value_type = bool
+  entity = Person
+  definition_period = DAY
+  label = "Whether we know the amount of the person's Guaranteed Income Supplement entitlement"
+
+  def formula(person, period, parameters):
+    return person('gis_eligible_known',period)
 
 class allowance_entitlement(Variable):
   value_type = float
@@ -1260,8 +1278,17 @@ class allowance_entitlement(Variable):
   label = "The amount of the person's old age security allowance entitlement"
 
   def formula(person, period, parameters):
-    entitlement = 23.45 * person('allowance_eligible', period) * person('allowance_eligible_known',period)
+    entitlement = 23.45 * person('allowance_eligible', period)
     return entitlement
+
+class allowance_entitlement_known(Variable):
+  value_type = bool
+  entity = Person
+  definition_period = DAY
+  label = "Whether we know the amount of the person's old age security allowance entitlement"
+
+  def formula(person, period, parameters):
+    return person('allowance_eligible_known',period)
 
 class afs_entitlement(Variable):
   value_type = float
@@ -1270,5 +1297,14 @@ class afs_entitlement(Variable):
   label = "The amount of the person's allowance for survivors entitlement"
 
   def formula(person, period, parameters):
-    entitlement = 12.34 * person('afs_eligible',period) * person('afs_eligible_known',period)
+    entitlement = 12.34 * person('afs_eligible',period)
     return entitlement
+
+class afs_entitlement_known(Variable):
+  value_type = bool
+  entity = Person
+  definition_period = DAY
+  label = "Whether we know the amount of the person's allowance for survivors entitlement"
+
+  def formula(person, period, parameters):
+    return person('afs_eligible_known', period)
