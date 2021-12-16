@@ -1,0 +1,15 @@
+{
+    "persons": {
+        "person1": {
+            "age": {
+                "2021-12-10": 40
+            },
+            "oas_eligible": {
+                "2021-12-10": null
+            },
+            "oas_eligible_known": {
+                "2021-12-10": null
+            }
+        }
+    }
+}
