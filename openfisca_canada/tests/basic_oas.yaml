@@ -9,8 +9,10 @@
 - name: OAS ineligible when income too high
   period: 2021-12-01
   input:
-    income: 129758
-    income_known: True
+    income: 
+      2021: 129758
+    income_known: 
+      2021: True
   output:
    oas_eligible:
      2021-12-01: False
@@ -19,8 +21,10 @@
 - name: If not resident, foreign qualification not known, OAS eligibility not known.
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -35,8 +39,10 @@
 - name: Uncertain if Sponsored
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -51,8 +57,10 @@
 - name: Uncertain (need more info) when citizen, < 10 years residence
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -67,8 +75,10 @@
 - name: not eligible when citizen and under 10 and not living in social agreement country
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -87,8 +97,10 @@
 - name: eligible when citizen and 10 years in canada.
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -105,8 +117,10 @@
 - name: eligible when living in agreement and 20 years residence
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     resides_in_agreement_country: True
@@ -123,8 +137,10 @@
 - name: unknown when living in agreement country, less than 20 years residence, qualificaiton not known
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     resides_in_agreement_country: True
@@ -139,8 +155,10 @@
 - name: eligible when in no agreement and 20 years in Canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     resides_in_agreement_country: False
@@ -157,8 +175,10 @@
 - name: not known (more info) when in no agreement and under 20 years in Canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     resides_in_agreement_country: False
@@ -174,8 +194,10 @@
 # - name: ineligible when in no agreement and under 20 years in Canada and not lived in agreement country
 #   period: 2021-12-01
 #   input:
-#     income: 10000
-#     income_known: True
+#     income: 
+      # 2021: 10000
+#     income_known: 
+      # 2021: True
 #     age: 65
 #     age_known: True
 #     resides_in_agreement_country: False
@@ -195,8 +217,10 @@
 # - name: ineligible due to age when 64, 9 years in canada, lived in social agreement country
 #   period: 2021-12-01
 #   input:
-#     income: 10000
-#     income_known: True
+#     income: 
+      # 2021: 10000
+#     income_known: 
+      # 2021: True
 #     age: 64
 #     age_known: True
 #     place_of_residence: CA
@@ -216,8 +240,10 @@
 # - name: conditional eligible when living in no agreement under 20 years in canada and lived in agreement
 #   period: 2021-12-01
 #   input:
-#     income: 10000
-#     income_known: True
+#     income: 
+      # 2021: 10000
+#     income_known: 
+      # 2021: True
 #     age: 65
 #     age_known: True
 #     resides_in_agreement_country: False
@@ -234,8 +260,10 @@
 - name: eligible when 65 if 55 citizen 20 years.
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 55
     age_known: True
     legal_status: CANADIAN_CITIZEN

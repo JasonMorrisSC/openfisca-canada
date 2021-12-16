@@ -4,13 +4,15 @@
 # TO DO:
 # * Add tests for Allowance for Survivor entitlement when it is added to the package
 # * Modify the tests so that they check for reasons according to the
-#   structure of the code in this package. More info, conditiona, and reasons.
+#   structure of the code in this package. More info, conditional, and reasons.
 
 - name: ineligible when income is 25920
   period: 2021-12-01
   input:
-    income: 25920
-    income_known: True
+    income: 
+      2021: 25920
+    income_known: 
+      2021: True
   output:
     afs_eligible_known:
       2021-12-01: True
@@ -19,16 +21,20 @@
 - name: need more info when income under 25920
   period: 2021-12-01
   input:
-    income: 25919
-    income_known: True
+    income: 
+      2021: 25919
+    income_known: 
+      2021: True
   output:
     afs_eligible_known:
       2021-12-01: False
 - name: need more info when age 60
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
   output:
@@ -37,8 +43,10 @@
 - name: ineligible when age over 64
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -59,8 +67,10 @@
 - name: ineligible when age under 60
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 59
     age_known: True
     place_of_residence: CA
@@ -81,8 +91,10 @@
 - name: conditionally eligible when not resident
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
     place_of_residence: CA
@@ -96,13 +108,17 @@
     partner_receiving_oas: False
     partner_receiving_oas_known: True
   output:
+    afs_eligible:
+      2021-12-01: False
     afs_eligible_known:
       2021-12-01: False
 - name: ineligible when citizen and under 10 years in Canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
     place_of_residence: CA
@@ -123,8 +139,10 @@
 - name: ineligible when married
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
     place_of_residence: CA
@@ -145,8 +163,10 @@
 - name: eligible when widowed
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
     place_of_residence: CA
@@ -167,12 +187,14 @@
 - name: eligible when living in agreement and 10 years in Canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
-    living_in_agreement_country: True
-    living_in_agreement_country_known: True
+    resides_in_agreement_country: True
+    resides_in_agreement_country_known: True
     legal_status: CANADIAN_CITIZEN
     legal_status_known: True
     years_in_canada_since_18: 10
@@ -189,12 +211,14 @@
 - name: conditionally eligible when living in agreement and under 10 years in canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
-    living_in_agreement_country: True
-    living_in_agreement_country_known: True
+    resides_in_agreement_country: True
+    resides_in_agreement_country_known: True
     legal_status: CANADIAN_CITIZEN
     legal_status_known: True
     years_in_canada_since_18: 9
@@ -209,12 +233,14 @@
 - name: eleigible when living in no agreement, 10 years in Canad
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
-    living_in_agreement_country: False
-    living_in_agreement_country_known: True
+    resides_in_agreement_country: False
+    resides_in_agreement_country_known: True
     legal_status: CANADIAN_CITIZEN
     legal_status_known: True
     years_in_canada_since_18: 10
@@ -231,12 +257,14 @@
 - name: ineligible when living in no agreement, under 10 years in Canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 60
     age_known: True
-    living_in_agreement_country: False
-    living_in_agreement_country_known: True
+    resides_in_agreement_country: False
+    resides_in_agreement_country_known: True
     legal_status: CANADIAN_CITIZEN
     legal_status_known: True
     years_in_canada_since_18: 9

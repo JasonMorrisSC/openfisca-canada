@@ -46,8 +46,10 @@
 - name: needs more info when missing place of residence
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     legal_status: CANADIAN_CITIZEN
@@ -62,12 +64,14 @@
 - name: ineligible when not in Canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
-    living_in_agreement_country: False
-    living_in_agreement_country_known: True
+    resides_in_agreement_country: False
+    resides_in_agreement_country_known: True
     legal_status: CANADIAN_CITIZEN
     legal_status_known: True
     years_in_canada_since_18: 20
@@ -83,8 +87,10 @@
 # - name: conditionally eligible when sponsored
   # period: 2021-12-01
   # input:
-  #   income: 10000
-  #   income_known: True
+  #   income: 
+      # 2021: 10000
+  #   income_known: 
+      # 2021: True
   #   age: 65
   #   age_known: True
   #   place_of_residence: CA
@@ -101,8 +107,10 @@
 - name: ineligible when single and income over 18216
   period: 2021-12-01
   input:
-    income: 18217
-    income_known: True
+    income: 
+      2021: 18217
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -121,8 +129,10 @@
 - name: eligible when single and income is 18216
   period: 2021-12-01
   input:
-    income: 18216
-    income_known: True
+    income: 
+      2021: 18216
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -141,8 +151,10 @@
 - name: ineligible when marrd and no partner oas and income over 43600
   period: 2021-12-01
   input:
-    income: 43681
-    income_known: True
+    income: 
+      2021: 43681
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -163,8 +175,10 @@
 - name: eligible when married and no partner oas and income is 43680
   period: 2021-12-01
   input:
-    income: 43680
-    income_known: True
+    income: 
+      2021: 43680
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -185,8 +199,10 @@
 - name: ineligible when married and partner oas and income over 24048
   period: 2021-12-01
   input:
-    income: 24049
-    income_known: True
+    income: 
+      2021: 24049
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -207,8 +223,10 @@
 - name: eligible when married and partner oas and income at 24048
   period: 2021-12-01
   input:
-    income: 24048
-    income_known: True
+    income: 
+      2021: 24048
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA

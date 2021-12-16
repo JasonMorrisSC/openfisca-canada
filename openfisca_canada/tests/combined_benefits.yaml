@@ -14,8 +14,10 @@
 - name: ineligible due to years in canada when living in canada and 9 years in canada and never lived in social country
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -41,8 +43,10 @@
 - name: conditionally eligible when living in Canada and 9 years in Canada and lived in country
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -64,8 +68,10 @@
 - name: conditionall eligible when living in agreement and 9 years in Canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     resides_in_agreement_country: True
@@ -88,8 +94,10 @@
 - name: eligible when living in canada and 10 years in canada
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     place_of_residence: CA
@@ -114,8 +122,10 @@
 - name: conditionally eligible when not living in canada and 19 years in Canada and lived in social agreement country
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     resides_in_agreement_country: False
@@ -141,8 +151,10 @@
 - name: ineligible due to years in canada when not living in canada and 10 years in Canada and not lived in social country
   period: 2021-12-01
   input:
-    income: 10000
-    income_known: True
+    income: 
+      2021: 10000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     resides_in_agreement_country: False
@@ -168,8 +180,10 @@
 - name: eligible when not living in Canada and 20 years in Canada
   period: 2021-12-01
   input:
-    income: 15000
-    income_known: True
+    income: 
+      2021: 15000
+    income_known: 
+      2021: True
     age: 65
     age_known: True
     resides_in_agreement_country: False

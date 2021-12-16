@@ -31,12 +31,12 @@ class legal_status_options(Enum):
   PERMANENT_RESIDENT = u"PERMANENT_RESIDENT",
   STATUS_INDIAN = u"STATUS_INDIAN",
   TEMPORARY_RESIDENT = u"TEMPORARY_RESIDENT",
-  NONE = u"NONE"
+  OTHER = u"OTHER"
 
 class legal_status(Variable):
   value_type = Enum
   possible_values = legal_status_options
-  default_value = legal_status_options.NONE
+  default_value = legal_status_options.OTHER
   entity = Person
   definition_period = DAY
   label = "Person's legal status in Canada"
