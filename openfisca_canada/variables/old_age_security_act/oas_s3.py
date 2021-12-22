@@ -591,6 +591,7 @@ class oas_s3_1_c_iii_satisfied(Variable):
     label = "Whether the person meets the requirements of section 3(1)(c)(iii) of the Old Age Security Act."
 
     def formula(person, period, parameters):
+#TODO: Get rid of "resided" as a separate test, here, and in _known
         resided = person('oas_s3_1_resided_in_canada_after_18',period)
         approval_date = person('oas_s3_approval_date', period)
         resided_40_years = person('oas_s3_1_c_iii_resided_in_canada_40_years',approval_date.previous_day)
@@ -611,14 +612,6 @@ class oas_s3_1_c_iii_satisfied(Variable):
 # requirements of section 3, by looking at various points in the future. But
 # we can't really query that without creating a bunch of other variables for
 # that purpose, or just querying it multiple times with different future dates.
-
-# it's worth noting that the requirment "has resided in Canada after attaining eighteen
-# years of age" is completely redundant to the requirement that they have resided in Canada
-# for an aggregate of 40 years. It is not possible for a person under the age of 18 to have
-# lived anywhere for 40 years. This is the sort of drafting error that automated analysis
-# could reveal. Using OpenFisca, it would be difficult to prove categorically, but you could
-# show that given a range of reasonable possible scenarios, none of them trigger the first
-# clause and not the second.
 
 class oas_s3_1_c_iii_satisfied_known(Variable):
     value_type = bool
@@ -965,7 +958,7 @@ class oas_s3_4_duration_known(Variable):
 
 
 ## Section 3(5)
-
+#TODO: Implment section 3(5)
 # Additional residence irrelevant for partial pensioner
 # (5) Once a person’s application for a partial monthly pension has been approved, the
 #  amount of monthly pension payable to that person under this Part may not be increased
