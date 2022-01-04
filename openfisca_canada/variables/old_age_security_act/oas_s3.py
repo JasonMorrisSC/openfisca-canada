@@ -484,6 +484,13 @@ class oas_s3_1_b_i_had_valid_visa_known(Variable):
     definition_period = DAY
     label = "Whether the person had a valid visa on July 1, 1977 as required by section 3(1)(b)(i) of the Old Age Security Act."
 
+# TODO: Encode 3(1)(b)(ii)
+# (ii) has attained sixty-five years of age, and
+
+# TODO: Encode 3(1)(b)(ii)
+# # (iii) has resided in Canada for the ten years immediately preceding the day on which that person’s application is approved or, if that person has not so resided, has, after attaining eighteen years of age, been present in Canada prior to those ten years for an aggregate period at least equal to three times the aggregate periods of absence from Canada during those ten years, and has resided in Canada for at least one year immediately preceding the day on which that person’s application is approved; and
+
+
 # (c) every person who
 # (i) was not a pensioner on July 1, 1977,
 # (ii) has attained sixty-five years of age, and
