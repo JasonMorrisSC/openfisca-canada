@@ -1,0 +1,7 @@
+# Old Age Security amounts are calculated on the basis of changes in the Consumer Price Index.
+description: The consumer price index for the payment quarter.
+metadata:
+  reference: 
+values:
+  1977-01: # Just random to have something.
+    value: 1.01958 #Just random.
