@@ -1,11 +1,12 @@
 """This file is a demonstration of how you can use the openfisca code to generate explanation trees, etc."""
 
+import json
+
 from networkx import all_simple_paths
 import requests
-import json
-from pprint import pprint
+# from pprint import pprint
 import networkx as nx
-from networkx import descendants, all_simple_paths
+from networkx import descendants
 from numpy import unique
 
 # From inside the root of this repository, run `pip install .` followed by
@@ -45,7 +46,7 @@ facts = {
                 },
             "oas_eligible_known": {
                 "2021-12-01": None,
-                }
+                },
             },
         "person2": {
             "age": {
@@ -83,9 +84,9 @@ facts = {
                 },
             "oas_eligible_known": {
                 "2021-12-01": None,
-                }
-            }
-        }
+                },
+            },
+        },
     }
 
 
@@ -221,7 +222,7 @@ for goal in unique(response["requestedCalculations"]):
                         known_parent = False
                         for path in all_simple_paths(dependency_graph, goal, node):
                             for parent in path:
-                                if dependency_graph.nodes[parent]["known"][i] == True:
+                                if dependency_graph.nodes[parent]["known"][i] is True:
                                     known_parent = True
                                     break
                             if not known_parent:
@@ -240,7 +241,7 @@ for goal in unique(response["requestedCalculations"]):
                 for q in relevant:
                     if q not in unaskable:
                         relevant_and_askable = True
-                if not relevant_and_askable and dependency_graph.nodes[goal]["known"][i] == False:
+                if not relevant_and_askable and dependency_graph.nodes[goal]["known"][i] is False:
                     conditional = True
                     dependency_graph.nodes[goal]["display"][i] = "conditionally known, potentially " + str(dependency_graph.nodes[goal]["value"][i])
 

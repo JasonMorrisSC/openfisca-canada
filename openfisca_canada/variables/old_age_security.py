@@ -1,7 +1,6 @@
 """This is a module for calculating entitlement and eligibility for OAS benefits."""
 
 from numpy import bool, float, int, isin, str, where
-
 from openfisca_core.indexed_enums import Enum
 from openfisca_core.model_api import not_
 from openfisca_core.periods import DAY, MONTH, YEAR
