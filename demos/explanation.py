@@ -1,3 +1,5 @@
+"""This file is a demonstration of how you can use the openfisca code to generate explanation trees, etc."""
+
 from networkx import all_simple_paths
 import requests
 import json
@@ -33,54 +35,54 @@ facts = {
     "persons": {
         "person1": {
             "age": {
-                "2021-12-01": 65
+                "2021-12-01": 65,
                 },
             "age_known": {
-                "2021-12-01": True
+                "2021-12-01": True,
                 },
             "oas_eligible": {
-                "2021-12-01": None
+                "2021-12-01": None,
                 },
             "oas_eligible_known": {
-                "2021-12-01": None
+                "2021-12-01": None,
                 }
             },
         "person2": {
             "age": {
-                "2021-12-01": 65
+                "2021-12-01": 65,
                 },
             "age_known": {
-                "2021-12-01": True
+                "2021-12-01": True,
                 },
             "income": {
-                "2021": 10000
+                "2021": 10000,
                 },
             "income_known": {
-                "2021": True
+                "2021": True,
                 },
             "place_of_residence": {
-                "2021-12-01": "GR"
+                "2021-12-01": "GR",
                 },
             "place_of_residence_known": {
-                "2021-12-01": True
+                "2021-12-01": True,
                 },
             "years_in_canada_since_18": {
-                "2021-12-01": 20
+                "2021-12-01": 20,
                 },
             "years_in_canada_since_18_known": {
-                "2021-12-01": True
+                "2021-12-01": True,
                 },
             "legal_status": {
-                "2021-12-01": "CANADIAN_CITIZEN"
+                "2021-12-01": "CANADIAN_CITIZEN",
                 },
             "legal_status_known": {
-                "2021-12-01": True
+                "2021-12-01": True,
                 },
             "oas_eligible": {
-                "2021-12-01": None
+                "2021-12-01": None,
                 },
             "oas_eligible_known": {
-                "2021-12-01": None
+                "2021-12-01": None,
                 }
             }
         }
@@ -131,15 +133,15 @@ response = json.loads(r.text)
 # Each node is given its value, and its corresponding known value.
 
 dependency_graph = nx.DiGraph()
-for (K, V) in response['trace'].items():
+for (K, V) in response["trace"].items():
     if "_known<" not in K:  # Exlclude _known variables, as they will be used to annotate
-        dependency_graph.add_node(K, value=V['value'])
-        for target in V['dependencies']:
+        dependency_graph.add_node(K, value=V["value"])
+        for target in V["dependencies"]:
             dependency_graph.add_edge(K, target)
-for (K, V) in response['trace'].items():
+for (K, V) in response["trace"].items():
     if "_known<" in K:
         related_node = K.replace("_known<", "<")
-        dependency_graph.nodes[related_node]['known'] = V['value']
+        dependency_graph.nodes[related_node]["known"] = V["value"]
 
 
 # The above creates a network of nodes, each of which has a 'value' and a 'known' attribute,
@@ -156,17 +158,17 @@ incorrect_nodes = []
 for N in dependency_graph:
     # Not sure why this test is necessary, but duplicate nodes
     # with no value show up for root elements in the graph
-    if 'value' in dependency_graph.nodes[N]:
-        values = dependency_graph.nodes[N]['value']
-        if 'known' in dependency_graph.nodes[N]:
-            knowns = dependency_graph.nodes[N]['known']
+    if "value" in dependency_graph.nodes[N]:
+        values = dependency_graph.nodes[N]["value"]
+        if "known" in dependency_graph.nodes[N]:
+            knowns = dependency_graph.nodes[N]["known"]
         else:  # Some output variables do not have associated "known" variables.
             knowns = [True] * len(values)
-            dependency_graph.nodes[N]['known'] = knowns
+            dependency_graph.nodes[N]["known"] = knowns
         display = []
         for (value, known) in zip(values, knowns):
             display.append(value if known else "unknown, potentially " + str(value))
-        dependency_graph.nodes[N]['display'] = display
+        dependency_graph.nodes[N]["display"] = display
     else:
         incorrect_nodes.append(N)
 
@@ -183,10 +185,11 @@ for i in incorrect_nodes:
 
 
 def generate_explanation(goal, entity, index=0):
-    indent = ' ' * index
-    because = ', because' if len(dependency_graph.adj[goal]) else ', and'
+    """Generate an explanation from the dependency_graph."""
+    indent = " " * index
+    because = ", because" if len(dependency_graph.adj[goal]) else ", and"
     output = ""
-    output += indent + goal.replace("<", " as of ").replace(">", "") + " is " + str(dependency_graph.nodes[goal]['display'][entity]) + because + '\n'
+    output += indent + goal.replace("<", " as of ").replace(">", "") + " is " + str(dependency_graph.nodes[goal]["display"][entity]) + because + "\n"
     index += 2
     for neighbour in dependency_graph.adj[goal]:
         output += generate_explanation(neighbour, entity, index)
@@ -199,11 +202,11 @@ def generate_explanation(goal, entity, index=0):
 # eliminate the "known" variables, and process the results for each
 
 
-for goal in unique(response['requestedCalculations']):
+for goal in unique(response["requestedCalculations"]):
     if "_known<" not in goal:
         print("--------------------------------------")
         i = 0
-        while i < len(dependency_graph.nodes[goal]['value']):
+        while i < len(dependency_graph.nodes[goal]["value"]):
             print("For Entity #" + str(i + 1) + ":")
 
             # We can use the graph to determine what input variables remain relevant.
@@ -214,11 +217,11 @@ for goal in unique(response['requestedCalculations']):
 
             for node in descendants(dependency_graph, goal):
                 if not descendants(dependency_graph, node):  # Only leaf nodes
-                    if not dependency_graph.nodes[node]['known'][i]:
+                    if not dependency_graph.nodes[node]["known"][i]:
                         known_parent = False
                         for path in all_simple_paths(dependency_graph, goal, node):
                             for parent in path:
-                                if dependency_graph.nodes[parent]['known'][i] == True:
+                                if dependency_graph.nodes[parent]["known"][i] == True:
                                     known_parent = True
                                     break
                             if not known_parent:
@@ -230,16 +233,16 @@ for goal in unique(response['requestedCalculations']):
             # accordingly. Note that you will need to generate the list
             # with the same period used in the inputs.
 
-            unaskable = ['eligible_under_social_agreement<2021-12-01>']
+            unaskable = ["eligible_under_social_agreement<2021-12-01>"]
             conditional = False
             relevant_and_askable = False
             if relevant:
                 for q in relevant:
                     if q not in unaskable:
                         relevant_and_askable = True
-                if not relevant_and_askable and dependency_graph.nodes[goal]['known'][i] == False:
+                if not relevant_and_askable and dependency_graph.nodes[goal]["known"][i] == False:
                     conditional = True
-                    dependency_graph.nodes[goal]['display'][i] = "conditionally known, potentially " + str(dependency_graph.nodes[goal]['value'][i])
+                    dependency_graph.nodes[goal]["display"][i] = "conditionally known, potentially " + str(dependency_graph.nodes[goal]["value"][i])
 
             # Now we can generate an explanation with the changes above,
             # and display it to the user along with the other useful information.
