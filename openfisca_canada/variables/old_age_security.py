@@ -243,8 +243,8 @@ class oas_eligible(Variable):
     label = "Whether Person is eligible for OAS"
 
     def formula(person, period, parameters):
-        return person('oas_eligible_income_requirement_satisfied', period) * person('oas_eligible_age_requirement_satisfied', period) * person('oas_eligible_legal_status_satisfied', period) * person('oas_eligible_required_residency_duration_satisfied', period) \
-            * person('oas_eligible_residency_requirement_satisfied', period)
+        return person("oas_eligible_income_requirement_satisfied", period) * person("oas_eligible_age_requirement_satisfied", period) * person("oas_eligible_legal_status_satisfied", period) * person("oas_eligible_required_residency_duration_satisfied", period) \
+            * person("oas_eligible_residency_requirement_satisfied", period)
 
 
 class oas_eligible_known(Variable):
@@ -256,13 +256,13 @@ class oas_eligible_known(Variable):
     def formula(person, period, parameters):
         # The answer to a conjunction is known if a) all of the conclusions are known,
         # or b) if any of the conclusions is known to be false.
-        all_true = person('oas_eligible_income_requirement_satisfied_known', period) * person('oas_eligible_age_requirement_satisfied_known', period) * person('oas_eligible_legal_status_satisfied_known', period) * person('oas_eligible_required_residency_duration_satisfied_known', period) \
-            * person('oas_eligible_residency_requirement_satisfied_known', period)
-        income_false = person('oas_eligible_income_requirement_satisfied_known', period) * not_(person('oas_eligible_income_requirement_satisfied', period))
-        age_false = person('oas_eligible_age_requirement_satisfied_known', period) * not_(person('oas_eligible_age_requirement_satisfied', period))
-        legal_status_false = person('oas_eligible_legal_status_satisfied_known', period) * not_(person('oas_eligible_legal_status_satisfied_known', period))
-        residency_duration_false = person('oas_eligible_required_residency_duration_satisfied_known', period) * not_(person('oas_eligible_required_residency_duration_satisfied', period))
-        residency_false = person('oas_eligible_residency_requirement_satisfied_known', period) * not_(person('oas_eligible_residency_requirement_satisfied', period))
+        all_true = person("oas_eligible_income_requirement_satisfied_known", period) * person("oas_eligible_age_requirement_satisfied_known", period) * person("oas_eligible_legal_status_satisfied_known", period) * person("oas_eligible_required_residency_duration_satisfied_known", period) \
+            * person("oas_eligible_residency_requirement_satisfied_known", period)
+        income_false = person("oas_eligible_income_requirement_satisfied_known", period) * not_(person("oas_eligible_income_requirement_satisfied", period))
+        age_false = person("oas_eligible_age_requirement_satisfied_known", period) * not_(person("oas_eligible_age_requirement_satisfied", period))
+        legal_status_false = person("oas_eligible_legal_status_satisfied_known", period) * not_(person("oas_eligible_legal_status_satisfied_known", period))
+        residency_duration_false = person("oas_eligible_required_residency_duration_satisfied_known", period) * not_(person("oas_eligible_required_residency_duration_satisfied", period))
+        residency_false = person("oas_eligible_residency_requirement_satisfied_known", period) * not_(person("oas_eligible_residency_requirement_satisfied", period))
         any_false = income_false + age_false + legal_status_false + residency_duration_false + residency_false
         return all_true + any_false
 
@@ -362,7 +362,7 @@ class oas_eligible_residency_requirement_satisfied(Variable):
     label = "Whether the residency requirement for OAS is satisfied by the Person"
 
     def formula(person, period, parameters):
-        satisfied = person('oas_eligible_canadian_residency_requirement_satisfied', period) + person('oas_eligible_foreign_residency_requirement_satisfied', period)
+        satisfied = person("oas_eligible_canadian_residency_requirement_satisfied", period) + person("oas_eligible_foreign_residency_requirement_satisfied", period)
         return satisfied
 
 
@@ -375,9 +375,9 @@ class oas_eligible_residency_requirement_satisfied_known(Variable):
     def formula(person, period, parameters):
         # A disjunction is known if all of the components are known, or if any of
         # the components is known and true.
-        canadian_true = person('oas_eligible_canadian_residency_requirement_satisfied_known', period) * person('oas_eligible_canadian_residency_requirement_satisfied', period)
-        foreign_true = person('oas_eligible_foreign_residency_requirement_satisfied_known', period) * person('oas_eligible_foreign_residency_requirement_satisfied', period)
-        all_known = person('oas_eligible_canadian_residency_requirement_satisfied_known', period) * person('oas_eligible_foreign_residency_requirement_satisfied_known', period)
+        canadian_true = person("oas_eligible_canadian_residency_requirement_satisfied_known", period) * person("oas_eligible_canadian_residency_requirement_satisfied", period)
+        foreign_true = person("oas_eligible_foreign_residency_requirement_satisfied_known", period) * person("oas_eligible_foreign_residency_requirement_satisfied", period)
+        all_known = person("oas_eligible_canadian_residency_requirement_satisfied_known", period) * person("oas_eligible_foreign_residency_requirement_satisfied_known", period)
         one_true = canadian_true + foreign_true
         known = one_true + all_known
         return known
@@ -435,7 +435,7 @@ class oas_eligible_income_requirement_satisfied(Variable):
     label = "Whether the income requirement for OAS is satisfied"
 
     def formula(person, period, parameters):
-        satisfied = person('oas_eligible__income_not_above_limit', period)
+        satisfied = person("oas_eligible__income_not_above_limit", period)
         return satisfied
 
 
@@ -446,7 +446,7 @@ class oas_eligible_income_requirement_satisfied_known(Variable):
     label = "Whether we know if the income requirement for OAS is satisfied"
 
     def formula(person, period, parameters):
-        known = person('oas_eligible__income_not_above_limit_known', period)
+        known = person("oas_eligible__income_not_above_limit_known", period)
         return known
 
 
@@ -479,7 +479,7 @@ class oas_eligible_age_requirement_satisfied(Variable):
     label = "Whether the age requirement for OAS is satisfied"
 
     def formula(person, period, parameters):
-        satisfied = person('oas_eligible__age_above_eligibility', period)
+        satisfied = person("oas_eligible__age_above_eligibility", period)
         return satisfied
 
 
@@ -490,7 +490,7 @@ class oas_eligible_age_requirement_satisfied_known(Variable):
     label = "Whether we know if the age requirement for OAS is satisfied"
 
     def formula(person, period, parameters):
-        known = person('oas_eligible__age_above_eligibility_known', period)
+        known = person("oas_eligible__age_above_eligibility_known", period)
         return known
 
 
@@ -523,7 +523,7 @@ class gis_eligible(Variable):
     label = "Whether Person is eligible for Guaranteed Income Supplement"
 
     def formula(person, period, parameters):
-        return person('oas_eligible', period) * person('gis_eligible_income', period) * person('gis_eligible_age', period)
+        return person("oas_eligible", period) * person("gis_eligible_income", period) * person("gis_eligible_age", period)
 
 
 class gis_eligible_known(Variable):
@@ -533,10 +533,10 @@ class gis_eligible_known(Variable):
     label = "Whether it is known if the Person is eligible for Guaranteed Income Supplement"
 
     def formula(person, period, parameters):
-        all_known = person('oas_eligible_known', period) * person('gis_eligible_income_known', period) * person('gis_eligible_age_known', period)
-        oas_false = person('oas_eligible_known', period) * not_(person('oas_eligible', period))
-        income_false = person('gis_eligible_income_known', period) * not_(person('gis_eligible_income', period))
-        age_false = person('gis_eligible_age_known', period) * person('gis_eligible_age', period)
+        all_known = person("oas_eligible_known", period) * person("gis_eligible_income_known", period) * person("gis_eligible_age_known", period)
+        oas_false = person("oas_eligible_known", period) * not_(person("oas_eligible", period))
+        income_false = person("gis_eligible_income_known", period) * not_(person("gis_eligible_income", period))
+        age_false = person("gis_eligible_age_known", period) * person("gis_eligible_age", period)
         any_false = oas_false + income_false + age_false
 
 
@@ -592,7 +592,7 @@ class gis_eligible_income_max(Variable):
         max_partner = parameters(period).benefits.old_age_security.guaranteed_income_supplement.maximum_income_partnered
         max_both = parameters(period).benefits.old_age_security.guaranteed_income_supplement.maximum_income_two_recipients
 
-        max_income = where(person('gis_eligible_income_max_partnered', period), max_partner, max_single)
+        max_income = where(person("gis_eligible_income_max_partnered", period), max_partner, max_single)
         max_income = where(person("partner_receiving_oas", period), max_both, max_income)
         return max_income
 
@@ -606,8 +606,8 @@ class gis_eligible_income_max_known(Variable):
     def formula(person, period, parameters):
         # The max is known if the person is not partnered, or if their marital status and partner receiving is known
 
-        not_partnered = not_(person('gis_eligible_income_max_partnered', period)) * person('gis_eligible_income_max_partnered_known', period)
-        both_known = person('marital_status_known', period) * person("partner_receiving_oas_known", period)
+        not_partnered = not_(person("gis_eligible_income_max_partnered", period)) * person("gis_eligible_income_max_partnered_known", period)
+        both_known = person("marital_status_known", period) * person("partner_receiving_oas_known", period)
         return not_partnered + both_known
 
 
@@ -618,8 +618,8 @@ class gis_eligible_income_max_partnered(Variable):
     label = "Whether the person has a partner for GIS eligibility"
 
     def formula(person, period, parameters):
-        married = person('marital_status', period) == marital_status_options.MARRIED
-        common_law = person('marital_status', period) == marital_status_options.COMMONLAW
+        married = person("marital_status", period) == marital_status_options.MARRIED
+        common_law = person("marital_status", period) == marital_status_options.COMMONLAW
         return married + common_law
 
 
@@ -630,7 +630,7 @@ class gis_eligible_income_max_partnered_known(Variable):
     label = "Whether we know if the person has a partner for GIS eligibility"
 
     def formula(person, period, parameters):
-        return person('marital_status_known', period)
+        return person("marital_status_known", period)
 
 # class gis_eligible_reason(Variable):
 #     value_type = str
@@ -639,8 +639,8 @@ class gis_eligible_income_max_partnered_known(Variable):
 #     label = "Why the Person is or is not eligible for Guaranteed Income Supplement"
 
 #     def formula(person, period, parameters):
-#         married = person('marital_status',period) == marital_status_options.MARRIED
-#         common_law = person('marital_status',period) == marital_status_options.COMMONLAW
+#         married = person("marital_status",period) == marital_status_options.MARRIED
+#         common_law = person("marital_status",period) == marital_status_options.COMMONLAW
 #         partnered = married + common_law
 #         max_single = parameters(period).benefits.old_age_security.guaranteed_income_supplement.maximum_income_single
 #         max_partner = parameters(period).benefits.old_age_security.guaranteed_income_supplement.maximum_income_partnered
@@ -651,10 +651,10 @@ class gis_eligible_income_max_partnered_known(Variable):
 #         income_requirement = person("income",period.this_year) < max_income
 #         age_requirement = person("age",period) >= parameters(period).benefits.old_age_security.eligibility_age
 
-#         reason = where(person('oas_eligible',period) * income_requirement * age_requirement, "You appear to be eligible for the Guaranteed Income Supplement.","")
+#         reason = where(person("oas_eligible",period) * income_requirement * age_requirement, "You appear to be eligible for the Guaranteed Income Supplement.","")
 #         reason = where(not_(age_requirement),"You must be 65 years of age to be eligible for the Guaranteed Income Supplement.",reason)
 #         reason = where(not_(income_requirement),"You make too much money to be eligible for the Guaranteed Income Supplement.",reason)
-#         reason = where(not_(person('oas_eligible',period)),"You must be eligible for Old Age Security to be eligible for the Guaranteed Income Supplement.",reason)
+#         reason = where(not_(person("oas_eligible",period)),"You must be eligible for Old Age Security to be eligible for the Guaranteed Income Supplement.",reason)
 
 #         return reason
 
@@ -682,13 +682,13 @@ class allowance_eligible_known(Variable):
 
     def formula(person, period, parameters):
         # A conjunction is known if any part is known false, or all parts are known
-        age_false = person('allowance_age_requirement_satisfied_known', period) * not_(person('allowance_age_requirement_satisfied', period))
-        partnered_false = person('allowance_partnered_requirement_satisfied_known', period) * not_(person('allowance_partnered_requirement_satisfied', period))
-        partner_receiving_false = person('allowance_partner_receiving_requirement_satisfied_known', period) * not_(person('allowance_partner_receiving_requirement_satisfied', period))
-        income_false = person('allowance_income_requirement_satisfied_known', period) * not_(person('allowance_income_requirement_satisfied', period))
-        residence_false = person('allowance_residence_requirement_satisfied_known', period) * not_(person('allowance_residence_requirement_satisfied', period))
+        age_false = person("allowance_age_requirement_satisfied_known", period) * not_(person("allowance_age_requirement_satisfied", period))
+        partnered_false = person("allowance_partnered_requirement_satisfied_known", period) * not_(person("allowance_partnered_requirement_satisfied", period))
+        partner_receiving_false = person("allowance_partner_receiving_requirement_satisfied_known", period) * not_(person("allowance_partner_receiving_requirement_satisfied", period))
+        income_false = person("allowance_income_requirement_satisfied_known", period) * not_(person("allowance_income_requirement_satisfied", period))
+        residence_false = person("allowance_residence_requirement_satisfied_known", period) * not_(person("allowance_residence_requirement_satisfied", period))
         any_false = age_false + partnered_false + income_false + residence_false + partner_receiving_false
-        all_known = person('allowance_age_requirement_satisfied_known', period) * person('allowance_partnered_requirement_satisfied_known', period) * person('allowance_income_requirement_satisfied_known', period) * person('allowance_residence_requirement_satisfied_known', period) * person('allowance_partner_receiving_requirement_satisfied_known', period)
+        all_known = person("allowance_age_requirement_satisfied_known", period) * person("allowance_partnered_requirement_satisfied_known", period) * person("allowance_income_requirement_satisfied_known", period) * person("allowance_residence_requirement_satisfied_known", period) * person("allowance_partner_receiving_requirement_satisfied_known", period)
         return any_false + all_known
 
 
@@ -860,8 +860,8 @@ class allowance_partnered_requirement_satisfied(Variable):
     label = ""
 
     def formula(person, period, parameters):
-        married = person('marital_status', period) == marital_status_options.MARRIED
-        common_law = person('marital_status', period) == marital_status_options.COMMONLAW
+        married = person("marital_status", period) == marital_status_options.MARRIED
+        common_law = person("marital_status", period) == marital_status_options.COMMONLAW
         return married + common_law
 
 
@@ -872,8 +872,8 @@ class allowance_partnered_requirement_satisfied_known(Variable):
     label = ""
 
     def formula(person, period, parameters):
-        married_true = (person('marital_status', period) == marital_status_options.MARRIED) * person('marital_status_known', period)
-        common_law_true = (person('marital_status', period) == marital_status_options.COMMONLAW) * person('marital_status_known', period)
+        married_true = (person("marital_status", period) == marital_status_options.MARRIED) * person("marital_status_known", period)
+        common_law_true = (person("marital_status", period) == marital_status_options.COMMONLAW) * person("marital_status_known", period)
         either_true = married_true + common_law_true
         both_known = person("marital_status_known", period)
         return either_true + both_known
@@ -886,7 +886,7 @@ class allowance_partner_receiving_requirement_satisfied(Variable):
     label = "Whether the requirement for Allowance that the partner be receiving OAS is satisfied"
 
     def formula(person, period, parameters):
-        return person('partner_receiving_oas', period)
+        return person("partner_receiving_oas", period)
 
 
 class allowance_partner_receiving_requirement_satisfied_known(Variable):
@@ -896,18 +896,18 @@ class allowance_partner_receiving_requirement_satisfied_known(Variable):
     label = "Whether it is known if the requirement for Allowance that the partner be receiving OAS is satisfied"
 
     def formula(person, period, parameters):
-        return person('partner_receiving_oas_known', period)
+        return person("partner_receiving_oas_known", period)
 
 
 class allowance_income_requirement_satisfied(Variable):
     value_type = bool
     entity = Person
     definition_period = DAY
-    label = "Whether the peron's income meets the requirement for allowance"
+    label = "Whether the person's income meets the requirement for allowance"
 
     def formula(person, period, parameters):
         income_cap = parameters(period).benefits.old_age_security.allowance.income_cap
-        income_requirement = person('income', period.this_year) < income_cap
+        income_requirement = person("income", period.this_year) < income_cap
         return income_requirement
 
 
@@ -918,7 +918,7 @@ class allowance_income_requirement_satisfied_known(Variable):
     label = "Whether it is known if the person's income meets the requirement for allowance"
 
     def formula(person, period, parameters):
-        return person('income_known', period.this_year)
+        return person("income_known", period.this_year)
 
 
 class allowance_age_requirement_satisfied(Variable):
@@ -1000,23 +1000,23 @@ class allowance_age_requirement_cap_satisfied_known(Variable):
 #         perm = person("legal_status",period) == legal_status_options.PERMANENT_RESIDENT
 #         temp = person("legal_status",period) == legal_status_options.TEMPORARY_RESIDENT
 #         canadian_resident = citizen + indian + perm + temp
-#         married = person('marital_status',period) == marital_status_options.MARRIED
-#         common_law = person('marital_status',period) == marital_status_options.COMMONLAW
+#         married = person("marital_status",period) == marital_status_options.MARRIED
+#         common_law = person("marital_status",period) == marital_status_options.COMMONLAW
 #         partnered_requirement = married + common_law
 #         minimum_years = parameters(period).benefits.old_age_security.allowance.minimum_years
-#         in_country_with_agreement = person('resides_in_agreement_country',period)
+#         in_country_with_agreement = person("resides_in_agreement_country",period)
 #         minimum_age = parameters(period).benefits.old_age_security.allowance.minimum_age
 #         # Note that we are making an assumption that the minimum age for OAS and the
 #         # age cap for the allowance will always be the same value.
 #         age_cap = parameters(period).benefits.old_age_security.eligibility_age
 #         income_cap = parameters(period).benefits.old_age_security.allowance.income_cap
-#         age = person('age',period)
+#         age = person("age",period)
 #         age_requirement = (age >= minimum_age) * (age < age_cap)
-#         income_requirement = person('income',period.this_year) < income_cap
-#         partner_receiving_requirement = person('partner_receiving_oas',period)
+#         income_requirement = person("income",period.this_year) < income_cap
+#         partner_receiving_requirement = person("partner_receiving_oas",period)
 #         years_in_canada = person("years_in_canada_since_18", period)
 #         canadian_residence_requirement = canadian_resident * (years_in_canada >= minimum_years)
-#         eligible_under_social_agreement = person('eligible_under_social_agreement',period)
+#         eligible_under_social_agreement = person("eligible_under_social_agreement",period)
 #         alternative_residence_requirement = in_country_with_agreement * eligible_under_social_agreement * (years_in_canada >= minimum_years)
 #         residence_requirement = canadian_residence_requirement + alternative_residence_requirement
 
@@ -1039,10 +1039,10 @@ class afs_eligible(Variable):
     label = "Whether Person is eligible for allowance for survivor"
 
     def formula(person, period, parameters):
-        age_requirement = person('afs_age_requirement_satisfied', period)
-        widowed_requirement = person('afs_widowed_requirement_satisfied', period)
-        income_requirement = person('afs_income_requirement_satisfied', period)
-        residence_requirement = person('afs_residence_requirement_satisfied', period)
+        age_requirement = person("afs_age_requirement_satisfied", period)
+        widowed_requirement = person("afs_widowed_requirement_satisfied", period)
+        income_requirement = person("afs_income_requirement_satisfied", period)
+        residence_requirement = person("afs_residence_requirement_satisfied", period)
 
         return age_requirement * widowed_requirement * income_requirement * residence_requirement
 
@@ -1055,12 +1055,12 @@ class afs_eligible_known(Variable):
 
     def formula(person, period, parameters):
         # A conjunction is known if any part is known false, or all parts are known
-        age_false = person('afs_age_requirement_satisfied_known', period) * not_(person('afs_age_requirement_satisfied', period))
-        widowed_false = person('afs_widowed_requirement_satisfied_known', period) * not_(person('afs_widowed_requirement_satisfied', period))
-        income_false = person('afs_income_requirement_satisfied_known', period) * not_(person('afs_income_requirement_satisfied', period))
-        residence_false = person('afs_residence_requirement_satisfied_known', period) * not_(person('afs_residence_requirement_satisfied', period))
+        age_false = person("afs_age_requirement_satisfied_known", period) * not_(person("afs_age_requirement_satisfied", period))
+        widowed_false = person("afs_widowed_requirement_satisfied_known", period) * not_(person("afs_widowed_requirement_satisfied", period))
+        income_false = person("afs_income_requirement_satisfied_known", period) * not_(person("afs_income_requirement_satisfied", period))
+        residence_false = person("afs_residence_requirement_satisfied_known", period) * not_(person("afs_residence_requirement_satisfied", period))
         any_false = age_false + widowed_false + income_false + residence_false
-        all_known = person('afs_age_requirement_satisfied_known', period) * person('afs_widowed_requirement_satisfied_known', period) * person('afs_income_requirement_satisfied_known', period) * person('afs_residence_requirement_satisfied_known', period)
+        all_known = person("afs_age_requirement_satisfied_known", period) * person("afs_widowed_requirement_satisfied_known", period) * person("afs_income_requirement_satisfied_known", period) * person("afs_residence_requirement_satisfied_known", period)
         return any_false + all_known
 
 
@@ -1138,9 +1138,9 @@ class afs_widowed_requirement_satisfied(Variable):
     label = "Whether the person meets the widowed requirement for AFS eligibility"
 
     def formula(person, period, parameters):
-        married = person('marital_status', period) == marital_status_options.MARRIED
-        common_law = person('marital_status', period) == marital_status_options.COMMONLAW
-        widowed = person('marital_status', period) == marital_status_options.WIDOWED
+        married = person("marital_status", period) == marital_status_options.MARRIED
+        common_law = person("marital_status", period) == marital_status_options.COMMONLAW
+        widowed = person("marital_status", period) == marital_status_options.WIDOWED
         widowed_requirement = widowed * not_(married + common_law)
         return widowed_requirement
 
@@ -1152,7 +1152,7 @@ class afs_widowed_requirement_satisfied_known(Variable):
     label = "Whether it is known if the person meets the widowed requirement for AFS eligibility"
 
     def formula(person, period, parameters):
-        return person('marital_status_known', period)
+        return person("marital_status_known", period)
 
 
 class afs_income_requirement_satisfied(Variable):
@@ -1163,7 +1163,7 @@ class afs_income_requirement_satisfied(Variable):
 
     def formula(person, period, parameters):
         income_cap = parameters(period).benefits.old_age_security.allowance_for_survivor.income_cap
-        income_requirement = person('income', period.this_year) < income_cap
+        income_requirement = person("income", period.this_year) < income_cap
         return income_requirement
 
 
@@ -1174,7 +1174,7 @@ class afs_income_requirement_satisfied_known(Variable):
     label = "Whether it is known if the person meets the income requirement for AFS eligibility"
 
     def formula(person, period, parameters):
-        return person('income_known', period.this_year)
+        return person("income_known", period.this_year)
 
 
 class afs_residence_requirement_satisfied(Variable):
@@ -1353,7 +1353,7 @@ class afs_residence_foreign_qualified_satisfied_known(Variable):
 #         canadian_resident = citizen + indian + perm + temp
 
 #         minimum_years = parameters(period).benefits.old_age_security.allowance.minimum_years
-#         in_country_with_agreement = person('resides_in_agreement_country',period)
+#         in_country_with_agreement = person("resides_in_agreement_country",period)
 
 #         # Note that we are assuming that the age requirements are going to go along
 #         # with the age requirements for the allowance itself.
@@ -1361,20 +1361,20 @@ class afs_residence_foreign_qualified_satisfied_known(Variable):
 #         # Note that we are making an assumption that the minimum age for OAS and the
 #         # age cap for the allowance will always be the same value.
 #         age_cap = parameters(period).benefits.old_age_security.eligibility_age
-#         age = person('age',period)
+#         age = person("age",period)
 #         age_requirement = (age >= minimum_age) * (age < age_cap)
 
-#         married = person('marital_status',period) == marital_status_options.MARRIED
-#         common_law = person('marital_status',period) == marital_status_options.COMMONLAW
-#         widowed = person('marital_status',period) == marital_status_options.WIDOWED
+#         married = person("marital_status",period) == marital_status_options.MARRIED
+#         common_law = person("marital_status",period) == marital_status_options.COMMONLAW
+#         widowed = person("marital_status",period) == marital_status_options.WIDOWED
 #         widowed_requirement = widowed * not_(married + common_law)
 
 #         income_cap = parameters(period).benefits.old_age_security.allowance_for_survivor.income_cap
-#         income_requirement = person('income',period.this_year) < income_cap
+#         income_requirement = person("income",period.this_year) < income_cap
 
 #         years_in_canada = person("years_in_canada_since_18", period)
 #         canadian_residence_requirement = canadian_resident * (years_in_canada >= minimum_years)
-#         eligible_under_social_agreement = person('eligible_under_social_agreement',period)
+#         eligible_under_social_agreement = person("eligible_under_social_agreement",period)
 #         alternative_residence_requirement = in_country_with_agreement * eligible_under_social_agreement * (years_in_canada >= minimum_years)
 
 #         qualified = age_requirement * widowed_requirement * income_requirement * (canadian_residence_requirement + alternative_residence_requirement)
@@ -1393,7 +1393,7 @@ class oas_entitlement(Variable):
     label = "The amount of the person's Old Age Security entitlement"
 
     def formula(person, period, parameters):
-        entitlement = 400.75 * person('oas_eligible', period)
+        entitlement = 400.75 * person("oas_eligible", period)
         return entitlement
 
 
@@ -1404,7 +1404,7 @@ class oas_entitlement_known(Variable):
     label = "Whether we know the amount of the person's Old Age Security entitlement"
 
     def formula(person, period, parameters):
-        return person('oas_eligible_known', period)
+        return person("oas_eligible_known", period)
 
 
 class gis_entitlement(Variable):
@@ -1414,7 +1414,7 @@ class gis_entitlement(Variable):
     label = "The amount of the person's Guaranteed Income Supplement entitlement"
 
     def formula(person, period, parameters):
-        entitlement = 123.45 * person('gis_eligible', period)
+        entitlement = 123.45 * person("gis_eligible", period)
         return entitlement
 
 
@@ -1425,7 +1425,7 @@ class gis_entitlement_known(Variable):
     label = "Whether we know the amount of the person's Guaranteed Income Supplement entitlement"
 
     def formula(person, period, parameters):
-        return person('gis_eligible_known', period)
+        return person("gis_eligible_known", period)
 
 
 class allowance_entitlement(Variable):
@@ -1435,7 +1435,7 @@ class allowance_entitlement(Variable):
     label = "The amount of the person's old age security allowance entitlement"
 
     def formula(person, period, parameters):
-        entitlement = 23.45 * person('allowance_eligible', period)
+        entitlement = 23.45 * person("allowance_eligible", period)
         return entitlement
 
 
@@ -1446,7 +1446,7 @@ class allowance_entitlement_known(Variable):
     label = "Whether we know the amount of the person's old age security allowance entitlement"
 
     def formula(person, period, parameters):
-        return person('allowance_eligible_known', period)
+        return person("allowance_eligible_known", period)
 
 
 class afs_entitlement(Variable):
@@ -1456,7 +1456,7 @@ class afs_entitlement(Variable):
     label = "The amount of the person's allowance for survivors entitlement"
 
     def formula(person, period, parameters):
-        entitlement = 12.34 * person('afs_eligible', period)
+        entitlement = 12.34 * person("afs_eligible", period)
         return entitlement
 
 
@@ -1467,4 +1467,4 @@ class afs_entitlement_known(Variable):
     label = "Whether we know the amount of the person's allowance for survivors entitlement"
 
     def formula(person, period, parameters):
-        return person('afs_eligible_known', period)
+        return person("afs_eligible_known", period)
