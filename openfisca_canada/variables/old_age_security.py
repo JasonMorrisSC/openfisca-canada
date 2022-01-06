@@ -1,11 +1,11 @@
-from openfisca_core.model_api import not_
-from openfisca_core.periods import DAY, YEAR, MONTH
-from openfisca_core.variables import Variable
 from openfisca_core.indexed_enums import Enum
-from datetime import date, datetime
-from numpy import bool, float, int, str, where, isin
+from openfisca_core.model_api import not_
+from openfisca_core.periods import DAY, MONTH, YEAR
+from openfisca_core.variables import Variable
 
 from openfisca_canada.entities import Person
+
+from numpy import bool, float, int, str, where, isin
 
 
 class oas_full_monthly_pension_payable(Variable):
@@ -538,6 +538,7 @@ class gis_eligible_known(Variable):
         income_false = person("gis_eligible_income_known", period) * not_(person("gis_eligible_income", period))
         age_false = person("gis_eligible_age_known", period) * person("gis_eligible_age", period)
         any_false = oas_false + income_false + age_false
+        return any_false + all_known
 
 
 class gis_eligible_age(Variable):
