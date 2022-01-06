@@ -13,6 +13,7 @@ def parse(file_name):
     with open(file_path, "r", encoding="utf8") as file:
         return json.loads(file.read())
 
+
 young = parse("young.json")
 # single = parse("single.json")
 # couple = parse("couple.json")
