@@ -18,3 +18,6 @@ dist
 
 .DS_Store
 *~
+
+# Testing Caches
+.pytest_cache
