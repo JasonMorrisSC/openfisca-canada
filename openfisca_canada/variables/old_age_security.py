@@ -1,11 +1,13 @@
 """This is a module for calculating entitlement and eligibility for OAS benefits."""
 
 from numpy import bool, float, int, isin, str, where
-from openfisca_canada.entities import Person
+
 from openfisca_core.indexed_enums import Enum
 from openfisca_core.model_api import not_
 from openfisca_core.periods import DAY, MONTH, YEAR
 from openfisca_core.variables import Variable
+
+from openfisca_canada.entities import Person
 
 
 class oas_full_monthly_pension_payable(Variable):
@@ -97,9 +99,9 @@ class place_of_residence_known(Variable):
 
 class legal_status_options(Enum):
     CANADIAN_CITIZEN = u"CANADIAN_CITIZEN"
-    PERMANENT_RESIDENT = u"PERMANENT_RESIDENT",
-    STATUS_INDIAN = u"STATUS_INDIAN",
-    TEMPORARY_RESIDENT = u"TEMPORARY_RESIDENT",
+    PERMANENT_RESIDENT = u"PERMANENT_RESIDENT"
+    STATUS_INDIAN = u"STATUS_INDIAN"
+    TEMPORARY_RESIDENT = u"TEMPORARY_RESIDENT"
     OTHER = u"OTHER"
 
 
@@ -134,11 +136,11 @@ class years_in_canada_since_18_known(Variable):
 
 
 class marital_status_options(Enum):
-    SINGLE = u"Single",
-    MARRIED = u"Married",
-    COMMONLAW = u"Common-law",
-    WIDOWED = u"Widowed",
-    DIVORCED = u"Divorced",
+    SINGLE = u"Single"
+    MARRIED = u"Married"
+    COMMONLAW = u"Common-law"
+    WIDOWED = u"Widowed"
+    DIVORCED = u"Divorced"
     SEPERATED = u"Seperated"
 
 
