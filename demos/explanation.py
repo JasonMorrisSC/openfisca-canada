@@ -3,9 +3,9 @@
 import json
 
 from networkx import all_simple_paths
+import networkx as nx
 import requests
 # from pprint import pprint
-import networkx as nx
 from networkx import descendants
 from numpy import unique
 
@@ -217,16 +217,15 @@ for goal in unique(response["requestedCalculations"]):
             relevant = []
 
             for node in descendants(dependency_graph, goal):
-                if not descendants(dependency_graph, node):  # Only leaf nodes
-                    if not dependency_graph.nodes[node]["known"][i]:
-                        known_parent = False
-                        for path in all_simple_paths(dependency_graph, goal, node):
-                            for parent in path:
-                                if dependency_graph.nodes[parent]["known"][i] is True:
-                                    known_parent = True
-                                    break
-                            if not known_parent:
-                                relevant.append(node)
+                if not descendants(dependency_graph, node) and not dependency_graph.nodes[node]["known"][i]:  # Only leaf nodes
+                    known_parent = False
+                    for path in all_simple_paths(dependency_graph, goal, node):
+                        for parent in path:
+                            if dependency_graph.nodes[parent]["known"][i] is True:
+                                known_parent = True
+                                break
+                        if not known_parent:
+                            relevant.append(node)
 
             # If we know which input variables will not be collected by the interface, and the
             # list of relevant variables is exclusively from that list, we can infer that the
