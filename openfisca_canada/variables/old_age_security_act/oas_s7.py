@@ -1,5 +1,5 @@
 from openfisca_core.model_api import not_
-from openfisca_core.periods import DAY, YEAR, MONTH
+from openfisca_core.periods import DAY, YEAR, MONTH, instant
 from openfisca_core.variables import Variable
 
 
@@ -18,15 +18,10 @@ class oas_7_1_amount_of_full_monthly_pension(Variable):
     definition_period = MONTH
     label = "The amount of the full monthly pension that may be paid to a person."
 
-    def formula_1985_1(person, period, parameters):
-        return 273.80
-
-    def formula_1985_2(person, period, paramenters):
-        return 273.80
-
-    def formula_1985_3(person, period,parameters):
-        return 273.80
-
+    def formula(person, period, parameters):
+        if period.size == 1 and period.year == 1985 and period.month in [1,2,3]:
+            return 273.80
+        
 class oas_7_1_amount_of_full_monthly_pension_known(Variable):
     value_type = float
     entity = Person
@@ -35,8 +30,6 @@ class oas_7_1_amount_of_full_monthly_pension_known(Variable):
 
     def formula(person, period, paramaters):
         return True
-
-# TODO: Convert amount and amount_known to vectorial calculations.
 
 
 # Quarterly adjustment of basic amount of full pension
